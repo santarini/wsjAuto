@@ -14,3 +14,4 @@ pyautogui.click(button='left', clicks=1, interval=0.25)
 time.sleep(10)
 gatewayIP = requests.get('https://api.ipify.org/?format=json')
 print(gatewayIP.text)
+#https://thepiratebay.org/user/surferbroadband/
