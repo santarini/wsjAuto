@@ -6,15 +6,14 @@ import datetime
 
 d = datetime.datetime.today()
 print(d.strftime('%B %d, %Y'))
-dateString = d.strftime('%B %d, %Y')
-
-
+dateString = d.strftime('%B %#d, %Y')
+dateString = dateString.strip()
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--incognito")
 
-driver = webdriver.Chrome(r"C:\Users\CommandCenter\AppData\Local\Programs\Python\Python36-32\chromedriver.exe", chrome_options=chrome_options)
-#driver = webdriver.Chrome(r"C:\Program Files\Python\Python36\chromedriver.exe")
+#driver = webdriver.Chrome(r"C:\Users\CommandCenter\AppData\Local\Programs\Python\Python36-32\chromedriver.exe", chrome_options=chrome_options)
+driver = webdriver.Chrome(r"C:\Program Files\Python\Python36\chromedriver.exe")
 
 driver.get('https://thepiratebay.org/user/surferbroadband/')
 response = driver.page_source
@@ -23,11 +22,25 @@ response = driver.page_source
 soup = bs.BeautifulSoup(response, 'lxml')
 searchTable = soup.find("table", {"id": "searchResult"})
 searchTableBody = searchTable.find('tbody')
-for tr in searchTableBody.findAll('tr'):
-    for td in tr.findAll('td')[1]:
-        print(td)
+trList = searchTableBody.findAll('tr')
 
+for tr in trList:
+    for td in tr.findAll('td'):
+        if dateString in str(td):
+            print(td)
+    
+        
+        if dateString in td:
+            print(td)
+            
         print('#$#########################')
+
+
+
+    #for td in tr.findAll('td')[1]:
+        #print(td)
+
+        #print('#$#########################')
 ##    for td in tr.findAll('td')[1]:
 ##        for div in tr.findAll('div'):
 ##            linkRef = div.find('a')
