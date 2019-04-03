@@ -27,35 +27,12 @@ trList = searchTableBody.findAll('tr')
 for tr in trList:
     for td in tr.findAll('td'):
         if dateString in str(td):
-            print(td)
-    
-        
-        if dateString in td:
-            print(td)
-            
-        print('#$#########################')
+            currentTD = str(td)
+            magnetLink = "magnet" + currentTD.split('href="magnet')[1].split('"')[0]
+
+driver.get(magnetLink)
 
 
-
-    #for td in tr.findAll('td')[1]:
-        #print(td)
-
-        #print('#$#########################')
-##    for td in tr.findAll('td')[1]:
-##        for div in tr.findAll('div'):
-##            linkRef = div.find('a')
-##        if dateString in linkRef.text:
-##            print("OH SHIT!")
-        #print(td)
-        #for a in td.findAll('a')[0]:
-        #        print(a)
-        #print(td)
-    #for second td in each tr
-    #for first div in td
-    #for first a in div
-    #if title contains today's date
-    #go to link in next a
-    
 
 #find the table
 #if the link in the table contains today's date
