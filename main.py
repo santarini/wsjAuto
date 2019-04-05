@@ -107,6 +107,10 @@ def fetchWSJ():
 ##    pyautogui.typewrite(fileName + ".pdf\n")
     #pyautogui.keyDown('enter')
     #pyautogui.keyUp('enter')
+
+    #close browser
+    driver.quit()
+    
     time.sleep(90)
 
     #clean up
@@ -132,11 +136,8 @@ def fetchWSJ():
     #close utorrent
     pyautogui.hotkey('alt', 'f4')
 
-    #close browser
-    driver.quit()
-
 #start the vpn
-#startVPN()
+startVPN()
 #start the download
 fetchWSJ()
 #turn off vpn
