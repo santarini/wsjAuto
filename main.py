@@ -40,7 +40,7 @@ def closeVPN():
     pyautogui.moveTo(closeButton)
     pyautogui.click(button='left', clicks=1, interval=0.25)
     time.sleep(2)
-    closeOkButton = pyautogui.locateOnScreen('vpnExitOk.png', grayscale=True, confidence=.75)
+    closeOkButton = pyautogui.locateOnScreen('vpnExitOk.png', grayscale=True, confidence=.8)
     closeOkButton = pyautogui.center(closeOkButton)
     pyautogui.moveTo(closeOkButton)
     pyautogui.click(button='left', clicks=1, interval=0.25)
@@ -110,12 +110,31 @@ def fetchWSJ():
 
     #close browser
     driver.quit()
-    
-    time.sleep(90)
-
-    #clean up
+ 
+    i = 1
+    while i < 30:
+        time.sleep(10)
+        torRef = pyautogui.locateOnScreen('finished.png', confidence=.9)
+        if torRef is None:
+            i +=1
+            print(i)
+        else:
+            break
+            
+##        try:
+##            time.sleep(10)
+##            torRef = pyautogui.locateOnScreen('finished.png', confidence=.9)
+##            break
+##        except TypeError:
+##            i +=1
+##            print(i)
+##            continue
+        
+            
     #delete download
 
+
+def cleanUpTor():
     torRef = pyautogui.locateOnScreen('finished.png', confidence=.9)
     torRef = pyautogui.center(torRef)
     pyautogui.moveTo(torRef)
@@ -140,6 +159,8 @@ def fetchWSJ():
 startVPN()
 #start the download
 fetchWSJ()
+#clean up torrent
+cleanUpTor()
 #turn off vpn
 stopVPN()
 #exit vpn client
