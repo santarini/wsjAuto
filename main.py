@@ -9,6 +9,7 @@ import datetime
 
 
 def startVPN():
+    pyautogui.moveTo(158, 1700)
     gatewayIP = requests.get('https://api.ipify.org/?format=json')
     print(gatewayIP.text)
     subprocess.Popen(r"C:\Program Files\Trust.Zone VPN Client\trustzone.exe", close_fds=True)
@@ -21,6 +22,7 @@ def startVPN():
     time.sleep(15)
     gatewayIP = requests.get('https://api.ipify.org/?format=json')
     print(gatewayIP.text)
+    time.sleep(3)
 
 def stopVPN():
     gatewayIP = requests.get('https://api.ipify.org/?format=json')
@@ -49,7 +51,7 @@ def closeVPN():
 
 def fetchWSJ():
     d = datetime.datetime.today()
-    print(d.strftime('%B %d, %Y'))
+    #print(d.strftime('%B %d, %Y'))
     dateString = d.strftime('%B %#d, %Y')
     dateString = dateString.strip()
 
@@ -58,7 +60,7 @@ def fetchWSJ():
 
     #driver = webdriver.Chrome(r"C:\Users\CommandCenter\AppData\Local\Programs\Python\Python36-32\chromedriver.exe", chrome_options=chrome_options)
     driver = webdriver.Chrome(r"C:\Program Files\Python\Python36\chromedriver.exe")
-
+    driver.set_window_size(480,200)
     driver.get('https://thepiratebay.org/user/surferbroadband/')
     response = driver.page_source
     #searchTable = driver.find_element_by_id('searchResult')
@@ -74,9 +76,11 @@ def fetchWSJ():
                 currentTD = str(td)
                 magnetLink = "magnet" + currentTD.split('href="magnet')[1].split('"')[0]
 
+    #subprocess.Popen(['runas', '/noprofile', '/user:Administrator', r"C:\Users\santa\Downloads\uTorrent.exe"], close_fds=True)
+
     driver.get(magnetLink)
 
-    time.sleep(3)
+    time.sleep(2)
 
     # click chrome prompt
     chromePrompt = pyautogui.locateOnScreen('chromePrompt.png', grayscale=True, confidence=.5)
@@ -84,15 +88,24 @@ def fetchWSJ():
     pyautogui.moveTo(chromePrompt)
     pyautogui.click(button='left', clicks=1, interval=0.25)
 
-    time.sleep(5)
+    time.sleep(10)
+
+####    #bypass admin auth
+##    pyautogui.hotkey('left')
+##    pyautogui.hotkey('enter')
+##    time.sleep(5)
 
     #paste destination path
     basePathDest = r"C:\Users\santa\OneDrive\WSJ\2019"
-    fileName = d.strftime('%a%b%d')
-    pyautogui.typewrite(basePathDest + '\\' +  fileName + '\n')
+    #fileName = d.strftime('%a%b%d')
+    #pyautogui.typewrite(basePathDest + '\\' +  fileName + '.pdf\n')
+    pyautogui.typewrite(basePathDest + "\n")
+##    pyautogui.keyDown('tab')
+##    pyautogui.keyDown('tab')
+##    pyautogui.typewrite(fileName + ".pdf\n")
     #pyautogui.keyDown('enter')
     #pyautogui.keyUp('enter')
-    time.sleep(60)
+    time.sleep(90)
 
     #clean up
     #delete download
@@ -109,7 +122,6 @@ def fetchWSJ():
         pyautogui.hotkey('down')
         i+=1
     pyautogui.hotkey('right')
-    pyautogui.hotkey('down')
     pyautogui.hotkey('enter')
     time.sleep(1)
     pyautogui.hotkey('enter')
@@ -118,12 +130,13 @@ def fetchWSJ():
     #close utorrent
     pyautogui.hotkey('alt', 'f4')
 
+    #close browser
+    driver.quit()
+
 #start the vpn
 startVPN()
 #start the download
 fetchWSJ()
-#close browser
-driver.quit()
 #turn off vpn
 stopVPN()
 #exit vpn client
