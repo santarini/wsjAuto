@@ -57,11 +57,13 @@ def fetchWSJ():
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito")
+    chrome_options.add_argument("--app=https://thepiratebay.org/user/surferbroadband/")
+    chrome_options.add_argument("--window-size=480,200")
 
     #driver = webdriver.Chrome(r"C:\Users\CommandCenter\AppData\Local\Programs\Python\Python36-32\chromedriver.exe", chrome_options=chrome_options)
-    driver = webdriver.Chrome(r"C:\Program Files\Python\Python36\chromedriver.exe")
-    driver.set_window_size(480,200)
-    driver.get('https://thepiratebay.org/user/surferbroadband/')
+    driver = webdriver.Chrome(r"C:\Program Files\Python\Python36\chromedriver.exe", chrome_options=chrome_options)
+    #driver.set_window_size(480,200)
+    #driver.get('https://thepiratebay.org/user/surferbroadband/')
     response = driver.page_source
     #searchTable = driver.find_element_by_id('searchResult')
 
@@ -134,11 +136,11 @@ def fetchWSJ():
     driver.quit()
 
 #start the vpn
-startVPN()
+#startVPN()
 #start the download
 fetchWSJ()
 #turn off vpn
 stopVPN()
 #exit vpn client
 closeVPN()
-print("Pau.")
+print("Toast.")
